@@ -1,0 +1,117 @@
+# Finance Domain Configuration
+# Purpose: Cost tracking, ROI analysis, budget management
+
+domain_name: finance
+domain_type: analytical
+version: 2.0
+last_updated: 2025-10-17
+
+# Domain Identity
+identity:
+  name: Finance Domain
+  description: AI agents for financial analysis and budget tracking
+  purpose: Track costs, calculate ROI, forecast revenue, manage budgets
+  owner: orchestrator
+
+# Context Configuration
+context:
+  primary_files:
+    - finance/.domain-context.md
+    - company/coordination/decision-log.md
+
+  read_access:
+    - finance/**/*
+    - product/hypotheses/**/*      # For ROI calculations
+    - engineering/specs/**/*       # For cost estimates
+    - company/coordination/**/*    # For budget tracking
+
+  write_access:
+    - finance/models/**/*          # Financial models
+    - finance/reports/**/*         # Budget reports
+
+  context_limits:
+    max_tokens: 25000
+    max_age_days: 180              # Financial history matters
+    truncation_strategy: financial_summary
+
+# Agent Registry
+agents:
+  active: []                       # Currently embedded in orchestrator
+
+  proposed:
+    - name: roi-calculator
+      type: financial_analysis
+      priority: high
+      estimated_cost: 10
+      output_path: finance/models
+
+    - name: budget-tracker
+      type: monitoring
+      priority: high
+      estimated_cost: 5
+      output_path: finance/reports
+
+# Output Configuration
+outputs:
+  primary_destination: finance/models/
+  format: markdown
+
+  naming_convention: "{model_type}-{timestamp}.md"
+  timestamp_format: "%Y%m%d"
+
+  git_commit:
+    enabled: true
+    prefix: "[agent/finance]"
+    auto_push: true
+
+# Budget Configuration
+budget:
+  monthly_allocation: 10           # $10 of $100 total budget
+  expected_runs_per_month: 2       # Bi-weekly budget checks
+
+  tracking:
+    total_budget: 100
+    alert_at: 80
+    emergency_stop: 95
+
+# Quality Standards
+quality:
+  financial_models:
+    - revenue_projections
+    - cost_breakdown
+    - break_even_analysis
+    - roi_calculation
+
+  confidence_thresholds:
+    revenue_forecast: 60
+    cost_estimate: 80
+
+# Integration
+integration:
+  consumes_from:
+    - product                      # Pricing, customer projections
+    - engineering                  # Development costs
+    - company                      # Strategic decisions
+
+  produces_for:
+    - company                      # Budget status, ROI analysis
+
+# Monitoring
+monitoring:
+  track_metrics:
+    - monthly_spend
+    - cost_per_validation_cycle
+    - budget_utilization
+    - roi_forecast
+
+  alert_conditions:
+    - budget_exceeded: 80%
+    - burn_rate_high: immediate
+
+# Metadata
+metadata:
+  created: 2025-10-17
+  last_updated: 2025-10-17
+  version: 2.0
+  status: empty
+  maintainer: orchestrator
