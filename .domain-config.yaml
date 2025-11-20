@@ -11,7 +11,7 @@ identity:
   name: Finance Domain
   description: AI agents for financial analysis and budget tracking
   purpose: Track costs, calculate ROI, forecast revenue, manage budgets
-  owner: orchestrator
+  owner: local-runner
 
 # Context Configuration
 context:
@@ -114,4 +114,4 @@ metadata:
   last_updated: 2025-10-17
   version: 2.0
   status: empty
-  maintainer: orchestrator
+  maintainer: local-runner
